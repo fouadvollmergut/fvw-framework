@@ -1,14 +1,14 @@
 <?php
 
   /*
-  Plugin Name: Fouad Vollmer Framework
-  Description: Technisches Framework für WordPress-Webseiten. Grundlage für verschiedene Addon-Plugins.
-  Author: Fouad Vollmer
-  Author URI: https://fouadvollmer.de/
-  Text Domain: fvw-framework
-  Domain Path: /languages/
-  Version: 23
-  */
+   * Plugin Name: Fouad Vollmer Framework
+   * Description: Technisches Framework für WordPress-Webseiten. Grundlage für verschiedene Addon-Plugins.
+   * Author: Fouad Vollmer
+   * Author URI: https://fouadvollmer.de/
+   * Text Domain: fvw-framework
+   * Domain Path: /languages/
+   * Version: 23
+   */
 
 
   /* PATH VARS */
