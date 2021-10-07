@@ -1,0 +1,2 @@
+:root{--fvw-error: #d00018;--fvw-warning: #eaab00;--fvw-initial: #ddd;--fvw-hover: #ccc;--fvw-focus: #aaa;--fvw-radius: 3px;--fvw-spacing: 2px;--fvw-border: 30px}@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes centerspin{from{transform:translate(-50%, -50%) rotate(0deg)}to{transform:translate(-50%, -50%) rotate(360deg)}}@keyframes fadein{from{opacity:0}to{opacity:1}}
+/*# sourceMappingURL=animate.css.map */

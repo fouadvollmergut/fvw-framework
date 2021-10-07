@@ -1,0 +1,37 @@
+	
+		
+	
+	$highlight: #0088fc;  // Highlight color (picked calendar day)
+	$warning: #eaab00;  // Warning color (form notes)
+	$error: #d00018;  // Error color (form error)
+	
+
+	$initial: #ddd; // Initial color (border)
+	$hover: #ccc; // Hover color (border)
+	$focus: #aaa; // Focus color (border)
+
+	
+	$radius: 3px; // Border radius
+	$border: 2px; // Border thickness
+	$spacing: 30px; // Spacing basis
+
+	
+
+
+	html {
+
+		--fvw-highlight: #0088fc;
+		--fvw-warning: #eaab00;
+		--fvw-error: #d00018;
+		
+
+		--fvw-initial: #ddd;
+		--fvw-hover: #ccc;
+		--fvw-focus: #aaa;
+
+		
+		--fvw-radius: 3px;
+		--fvw-border: 2px;
+		--fvw-spacing: 30px;
+
+	}
