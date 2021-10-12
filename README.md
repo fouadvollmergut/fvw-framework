@@ -4,6 +4,8 @@ Technisches Framework für WordPress-Webseiten. Grundlage für verschiedene Addo
 
 ## Installation
 
+
 ## Settings
+
 
 ## License
