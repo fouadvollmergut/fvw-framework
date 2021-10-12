@@ -52,12 +52,6 @@
 	require_once FVW_FRAMEWORK_BASE_PATH . 'includes/privacy.php';
 	require_once FVW_FRAMEWORK_BASE_PATH . 'includes/misc.php';
 	require_once FVW_FRAMEWORK_BASE_PATH . 'includes/mailer.php';
-	
-
-
-
-
-
 
 
 	/******************************* FACTORY FUNCTION *******************************/
