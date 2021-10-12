@@ -126,20 +126,3 @@
   add_action( 'admin_enqueue_scripts', function() {
     wp_enqueue_script( 'fontawesome', 'https://kit.fontawesome.com/2b14856f6a.js', array() );
   } );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
