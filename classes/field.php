@@ -2,13 +2,12 @@
 
   class FVW_FIELD {
 
-
-    /********************** PROPERTIES **********************/
+    /* PROPERTIES */
 
     public $form = null;
 
 
-    /********************** CONSTRUCTOR **********************/
+    /* CONSTRUCTOR */
 
     public function __construct( $key, $form, $settings = false ) {
 
@@ -58,64 +57,63 @@
     }
 
 
-    /********************** HELPER **********************/
+    /* HELPER */
 
-    // Returns the field key
+    # Returns the field key
     public function key() {
       return $this->key;
     }
 
-    // Returns the field name
+    # Returns the field name
     public function name() {
       return $this->name ?: $this->id();
     }
 
-    // Set or get the field type
+    # Set or get the field type
     public function type( $set = null ) {
       if( $set !== null ) $this->type = $set;
 
       return $this->type;
     }
 
-    // Returns the field ID
+    # Returns the field ID
     public function id() {
       return $this->id ?: $this->form()->key() . '_' . $this->key;
     }
 
-    // Returns the parent form
+    # Returns the parent form
     public function form() {
       return $this->form;
     }
 
-    // Set or get a field default
+    # Set or get a field default
     public function default( $set = null ) {
       if( $set !== null ) $this->default = $set;
-      
+
       return $this->default;
     }
 
-    // Set or get a field value
+    # Set or get a field value
     public function value( $set = null ) {
       if( $set !== null ) $this->value = $set;
 
       return $this->value;
     }
 
-
-    // Returns errors for this name
+    # Returns errors for this name
     public function error( $set = null ) {
       return $this->form()->error( $this->key, $set );
     }
 
-    // Returns a set class
+    # Returns a set class
     public function class( $class ) {
       return $this->form()->class( $class );
     }
 
 
-    /********************** RENDERING **********************/
+    /* RENDERING */
 
-    // Create label attribute
+    # Create label attribute
     public function label_attributes( $attributes = null ) {
 
       // Default atts
@@ -131,16 +129,15 @@
       return fvw()->tools()->attributes( $attributes );
     }
 
-
-    // Create label output
+    # Create label output
     public function label( $atts = null ) {
       echo '<label ' . $this->label_attributes( $atts ) . '>';
-        echo $this->label;
-        if( $this->required ) $this->form()->required();
+      echo $this->label;
+      if( $this->required ) $this->form()->required();
       echo '</label>';
     }
 
-    // Renders the field
+    # Renders the field
     public function render( $class = null ) {
 
       // Required attribute
@@ -187,16 +184,17 @@
           // Start: Handling for deprecated (since v17) options parameter
           if( isset( $this->options ) AND !isset( $this->items ) ):
             $items = $this->options;
+
             fvw()->error( 'The FVW_FIELD options property is deprecated. Use items instead.' );
           else:
             $items = $this->items;
           endif;
-
           // End: Handling for deprecated (since v17) options parameter
+
           echo '<select class="' . $this->class( 'select' ) . '" id="' . $this->id() . '" name="' . $this->name() . '" ' . $required . ' />';
 
-          $i = 0; 
-          
+          $i = 0;
+
           foreach( $items AS $itemValue => $itemName ): $i++; 
             if( $this->value() == '' AND $i == 1 ):
               $selected = 'selected="selected"';
@@ -219,29 +217,31 @@
           // Start: Handling for deprecated (since v17) options parameter
           if( isset( $this->options ) AND !isset( $this->items ) ):
             $items = $this->options;
+
             fvw()->error( 'The FVW_FIELD options property is deprecated. Use items instead.' );
           else:
             $items = $this->items;
           endif;
-
           // End: Handling for deprecated (since v17) options parameter
-          echo '<ul id="' . $this->id() . $i . '">';
-            $i = 0; 
-            
-            foreach( $items AS $itemValue => $itemName ): $i++; 
-              if( $this->value() == '' AND $i == 1 ):
-                $selected = 'checked="checked"';
-              elseif( $itemValue == $this->value() ):
-                $selected = 'checked="checked"';
-              else:
-                $selected = '';
-              endif;
 
-              echo '<li>';
-              echo '<input id="' . $this->id() . $i . '" class="' . $this->class( 'radio' ) . '" type="' . $this->type() . '" name="' . $this->name() . '" ' . $selected . ' ' . $required . ' />';
-              echo '<label for="' . $this->id() . $i . '">' . $itemName . '</label>';
-              echo '</li>';
-            endforeach;
+          echo '<ul id="' . $this->id() . $i . '">';
+
+          $i = 0; 
+
+          foreach( $items AS $itemValue => $itemName ): $i++; 
+            if( $this->value() == '' AND $i == 1 ):
+              $selected = 'checked="checked"';
+            elseif( $itemValue == $this->value() ):
+              $selected = 'checked="checked"';
+            else:
+              $selected = '';
+            endif;
+
+            echo '<li>';
+            echo '<input id="' . $this->id() . $i . '" class="' . $this->class( 'radio' ) . '" type="' . $this->type() . '" name="' . $this->name() . '" ' . $selected . ' ' . $required . ' />';
+            echo '<label for="' . $this->id() . $i . '">' . $itemName . '</label>';
+            echo '</li>';
+          endforeach;
 
           echo '</ul>';
         break;
@@ -260,9 +260,7 @@
           $this->label();
 
           echo '<textarea rows="' . $this->rows . '" class="' . $this->class( 'textarea' ) . '" id="' . $this->id() . '" name="' . $this->name() . '" ' . $required . ' />';
-
           echo $this->value();
-
           echo '</textarea>';
         break;
 
@@ -292,9 +290,7 @@
           $dateEnable = is_array( $this->dateEnable ) ? implode( ',', $this->dateEnable ) : '';
 
           echo '<div class="fvw_flatpickr" data-type="' . $this->type() . '" data-datemin="' . $this->dateMin . '" data-datemax="' . $this->dateMax . '" data-dateenable="' . $dateEnable . '" data-datedisable="' . $dateDisable . '">';
-
           echo '<input class="' . $this->class( 'text' ) . '" id="' . $this->id() . '" type="text" name="' . $this->name() . '" value="' . $this->value() . '" ' . $placeholder . ' ' . $required . ' />';
-
           echo '</div>';
         break;
 
@@ -302,8 +298,6 @@
         case 'hidden':
           echo '<input class="' . $this->class( 'hidden' ) . '" id="' . $this->id() . '" type="' . $this->type() . '" name="' . $this->name() . '" value="' . $this->value() . '" />';
         break;
-
-
 
         // Text and others
         default:

@@ -1,24 +1,32 @@
 <?php
 
   class FVW_FACTORY {
-    public $tools = null;
 
+    public $tools = null;
     public $settings = null;
 
+    # Returns the tools class
     function tools() {
-      if (!$this->tools):
-        $this->tools = new FVW_TOOLS;
-      endif;
+      if( !$this->tools ) $this->tools = new FVW_TOOLS;
 
       return $this->tools;
     }
 
+    # Returns if privacy contents can be placed or not
+    function privacy() {
+      if( isset( $_COOKIE[ 'fvw_privacy' ] ) AND $_COOKIE[ 'fvw_privacy' ] == 'enabled' ):
+        return true;
+      else:
+        return false;
+      endif;
+    }
+
     # Returns a theme setting
     function setting( $path ) {
-      if ($this->settings === null):
+      if( $this->settings === null ):
         $locate = locate_template( 'settings.php' );
 
-        if ($locate):
+        if( $locate ):
           require $locate;
           $this->settings = $settings;
         else:
@@ -26,18 +34,14 @@
         endif;
       endif;
 
-      if (!$this->settings): 
-        return false;
-      endif;
+      if( !$this->settings ) return false;
 
       $exploded = explode( '/', $path );
 
       $temp = $this->settings;
 
-      foreach ($exploded as $key):
-        if (!isset( $temp[ $key ] )): 
-          return null;
-        endif;
+      foreach( $exploded as $key ):
+        if( !isset( $temp[ $key ] ) ) return null;
 
         $temp = $temp[ $key ];
       endforeach;
@@ -52,7 +56,7 @@
 
     # Shows maintenance tempalte
     function maintenance() {
-      if ($locate = locate_template( 'maintenance.php' )):
+      if( $locate = locate_template( 'maintenance.php' ) ):
         require $locate;
       else:
         require FVW_FRAMEWORK_BASE_PATH . 'includes/maintenance.php';
@@ -62,14 +66,18 @@
     # Creates a Google Anayltics Events tracking snippet
     function track( $category, $action, $label = '' ) {
       if( fvw()->setting( 'integration/google_analytics' ) ):
-    ?>
-      <script>
-        gtag('event', '<?php echo $action ?>', {
-          'event_category': '<?php echo $category ?>',
-          'event_label': '<?php echo $label ?>',
-        });
-      </script>
-    <?php
+      ?>
+
+        <script>
+          if (typeof gtag === 'function') { 
+            gtag('event', '<?php echo $action ?>', {
+              'event_category': '<?php echo $category ?>',
+              'event_label': '<?php echo $label ?>',
+            });
+          }
+        </script>
+
+      <?php
       endif;
     }
   }

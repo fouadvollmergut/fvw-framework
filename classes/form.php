@@ -2,11 +2,9 @@
 
   class FVW_FORM {
 
-
-    /********************** PROPERTIES **********************/
+    /* PROPERTIES */
 
     public $fields = array();
-
     public $classes = array(
       'label' => 'formLabel',
       'required' => 'formRequired',
@@ -21,17 +19,14 @@
       'hidden' => 'formHidden',
       'checkbox' => 'formCheckbox',
     );
-
     public $errors = array();
-
     public $status = 'ready';
-
     public $data = null; // Used to hold custom form data
 
 
-    /********************** CONSTRUCTOR **********************/
+    /* CONSTRUCTOR */
 
-    // Constructor
+    # Constructor
     public function __construct( $key, $name, $fields, $settings = null ) {
 
       // Create data holder
@@ -143,7 +138,7 @@
 
             // Automatic sanitizers
             if( $field->type() == 'datetime' AND !empty( $field->value() ) ) $field->value( date_i18n( get_option( 'date_format' ) . ', '. get_option( 'time_format' ), strtotime( $field->value() ) ) );
-            
+
             if( $field->type() == 'date' AND !empty( $field->value() ) ) $field->value( date_i18n( get_option( 'date_format' ), strtotime( $field->value() ) ) );
 
             if( $field->type() == 'time' AND !empty( $field->value() ) ) $field->value( date_i18n( get_option( 'time_format' ), strtotime( $field->value() ) ) );
@@ -195,29 +190,29 @@
     }
 
 
-    /********************** HELPER **********************/
+    /* HELPER */
 
-    // Google recaptcha enabled
+    # Google recaptcha enabled
     public function recaptcha() {
       return ( fvw()->setting( 'integration/google_recaptcha/key' ) AND fvw()->setting( 'integration/google_recaptcha/secret' ) ) ? true : false;
     }
 
-    // Return form key (sanitized)
+    # Return form key (sanitized)
     public function key() {
       return 'form_' . sanitize_key( $this->key );
     }
 
-    // Returns form name
+    # Returns form name
     public function name() {
       return $this->name;
     }
 
-    // Returns current form method
+    # Returns current form method
     public function method() {
       return strtolower( $this->method ) == 'get' ? 'get' : 'post';
     }
 
-    // Check if form was submitted (if nonce or recaptcha failed the request is ignored)
+    # Check if form was submitted (if nonce or recaptcha failed the request is ignored)
     public function send() {
 
       // Google recaptcha check
@@ -248,23 +243,30 @@
       return true;
 
       // Deprecated since v23
+
       // if( $this->method() == 'post' AND isset( $_POST[ $this->key() . '_nonce' ] ) AND wp_verify_nonce( $_POST[ $this->key() . '_nonce' ], 'form_submit' ) ):
+
       // 	return true;
+
       // elseif( $this->method() == 'get' AND isset( $_GET[ $this->key() . '_nonce' ] ) AND wp_verify_nonce( $_GET[ $this->key() . '_nonce' ], 'form_submit' ) ):
+
       // 	return true;
+
       // else:
+
       // 	return false;
+
       // endif;
     }
 
-    // Get and set custom data
+    # Get and set custom data
     public function data( $key, $set = false ) {
       if( $set ) $this->data->$key = $set;
 
       return isset( $this->data->$key ) ? $this->data->$key : null;
     }
 
-    // Returns all form values based on registered fields
+    # Returns all form values based on registered fields
     public function values() {
       $values = array();
 
@@ -275,7 +277,7 @@
       return $values;
     }
 
-    // Returns a single field value
+    # Returns a single field value
     public function value( $field, $set = null ) {
       if( $fieldObject = $this->field( $field ) ):
         return $fieldObject->value( $set );
@@ -286,7 +288,7 @@
       endif;
     }
 
-    // Replaces variable placeholders in text
+    # Replaces variable placeholders in text
     public function map( $text, $values = null ) {
 
       // Rewrite email for honeypot spam protection
@@ -302,7 +304,7 @@
       return fvw()->tools()->mapString( $text, $values );
     }
 
-    // Setting and getting errors
+    # Setting and getting errors
     public function error( $field = null, $set = null ) {
       if( $field AND $set ):
         if( !is_array( $field ) ) $field = explode( ',', $field );
@@ -316,18 +318,16 @@
     }
 
 
-    /********************** STATUS **********************/
+    /* STATUS */
 
-    /*
-     * Get or set form status
-     *
-     * ready (form waiting for input)
-     * error (validation failed)
-     * done (validation and sanitation done)
+    # Get or set form status
 
-     * failure (custom action failed) (not set automatically)
-     * success (custom action succeded) (not set automatically)
-     */
+    # ready (form waiting for input)
+    # error (validation failed)
+    # done (validation and sanitation done)
+
+    # failure (custom action failed) (not set automatically)
+    # success (custom action succeded) (not set automatically)
 
     public function status( $set = null ) {
       if( $set !== null ) $this->status = $set;
@@ -335,7 +335,7 @@
       return isset( $_GET[ $this->key() . '_status' ] ) ? $_GET[ $this->key() . '_status' ] : $this->status;
     }
 
-    // Redirect to success page (for preventing resubmit of form data)
+    # Redirect to success page (for preventing resubmit of form data)
     public function redirect_success() {
       $url = add_query_arg( $this->key() . '_status', 'success', $this->action ) . '#' . $this->key();
 
@@ -348,7 +348,7 @@
       exit;
     }
 
-    // Redirect to failure page (for preventing resubmit of form data)
+    # Redirect to failure page (for preventing resubmit of form data)
     public function redirect_failure() {
       $url = add_query_arg( $this->key() . '_status', 'failure', $this->action ) . '#' . $this->key();
 
@@ -362,27 +362,25 @@
     }
 
 
-    /********************** TEMPLATING **********************/
+    /* TEMPLATING */
 
-    // Returns a class
+    # Returns a class
     public function class( $class ) {
       return $this->classes[ $class ];
     }
 
-    // Opening form tag
+    # Opening form tag
     public function open() {
       if( $this->autohandler AND ( $this->status() == 'failure' OR $this->status() == 'success' ) ):
         echo '<div class="modulePadding" id="' . $this->key() . '">';
 
         if( $this->status() == 'success' ):
           echo '<h1>' . $this->autohandler_success_title . '</h1>';
-
           echo '<div>' . $this->autohandler_success_text . '</div>';
 
           fvw()->track( 'Formular', $this->name(), 'success' );
         else:
           echo '<h1>' . $this->autohandler_error_title . '</h1>';
-
           echo '<div>' . $this->autohandler_error_text . '</div>';
 
           fvw()->track( 'Formular', $this->name(), 'failure' );
@@ -407,7 +405,7 @@
       echo '<form ' . fvw()->tools()->attributes( $attributes ) . '>';
     }
 
-    // Closing form tag
+    # Closing form tag
     public function close() {
       echo '</form>';
 
@@ -421,7 +419,6 @@
               grecaptcha.ready( function() {
                   grecaptcha.execute( '" . fvw()->setting( 'integration/google_recaptcha/key' ) . "', { action: '" . $this->name() . "' } ).then( function( token ) {
                       jQuery( '#" . $this->key() . "' ).prepend( '<input type=\"hidden\" name=\"" . $this->key() . "_token\" value=\"' + token + '\">' );
-
                       jQuery( '#" . $this->key() . "' ).unbind( 'submit' ).submit();
                   } );;
               } );
@@ -435,10 +432,10 @@
         else:
           echo ob_get_clean();
         endif;
-      endif;
+      endif; 
     }
 
-    // Submit button
+    # Submit button
     public function submit( $text = null, $buttonClass = null, $privacyClass = 'mt' ) {
 
       // WordPress nonce field
@@ -462,34 +459,33 @@
       echo '<button type="submit" class="' . trim( implode( ' ', $class_handler ) ) . '">' . ( $text ?: __( 'Senden', 'fvw-framework' ) ) . '</button>';
     }
 
-    // Required sign
+    # Required sign
     public function required() {
       echo '<span class="' . $this->class( 'required' ) . '" title="' . __( 'Dieses Feld ist erforderlich', 'fvw-framework' ) . '">*</span>';
     }
 
-    // Section text
+    # Section text
     public function section( $text ) {
       echo '<strong class="' . $this->class( 'section' ) . '">' . $text . '</strong>';
     }
 
 
-    /********************** FIELDS **********************/
+    /* FIELDS */
 
-    // Create field object
+    # Create field object
     public function register( $key, $settings = null ) {
       $this->fields[ $key ] = new FVW_FIELD( $key, $this, $settings );
     }
 
-    // Return field object
+    # Return field object
     public function field( $key ) {
       return isset( $this->fields[ $key ] ) ? $this->fields[ $key ] : null;
     }
 
-    // Check if specific field type exists in form
+    # Check if specific field type exists in form
     public function has_field_type( $type ) {
-      foreach( $this->fields as $key => $field ):
+      foreach( $this->fields as $key => $field )
         if( $field->type() == $type ) return true;
-      endforeach;
 
       return false;
     }
