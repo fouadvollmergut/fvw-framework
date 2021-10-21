@@ -7,6 +7,6 @@ Grundlage für verschiedene Addon-Plugins der [Fouad Vollmer Werbeagentur](https
 
 Aktuellen Release herunterladen und im Wordpress Plugins Ordner platzieren.
 
-## Settings
+## Version
 
-## License
+~Current Version:28~
