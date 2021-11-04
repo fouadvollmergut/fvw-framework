@@ -80,12 +80,6 @@
       $jsDeps[] = 'flatpickr';
     endif;
 
-    // Mobilemenu
-    if( apply_filters( 'fvw_load_mobilemenu', true ) ):
-      wp_enqueue_script( 'fvw-mobilemenu', plugins_url( '/assets/scripts/mobilemenu.min.js', __FILE__ ), array( 'jquery', 'fvw-framework-script' ) );
-      $jsDeps[] = 'fvw-mobilemenu';
-    endif;
-
     // Google Recaptcha
     if( $recaptcha_key = fvw()->setting( 'integration/google_recaptcha/key' ) AND $recaptcha_secret = fvw()->setting( 'integration/google_recaptcha/secret' ) ):
       wp_enqueue_script( 'recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . $recaptcha_key, '4.6.3' );
@@ -96,6 +90,11 @@
 
     // Main script
     wp_enqueue_script( 'fvw-framework-script', plugins_url( '/assets/scripts/v' . FVW_FRAMEWORK_RESOURCE_ID . '.min.js', __FILE__ ) );
+
+    // Mobilemenu
+    if( apply_filters( 'fvw_load_mobilemenu', true ) ):
+      wp_enqueue_script( 'fvw-mobilemenu', plugins_url( '/assets/scripts/mobilemenu.min.js', __FILE__ ), array( 'jquery', 'fvw-framework-script' ) );
+    endif;
 
     // Localization
     $timestamp = strtotime( 'next monday' );
