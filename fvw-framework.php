@@ -96,6 +96,11 @@
       wp_enqueue_script( 'fvw-mobilemenu', plugins_url( '/assets/scripts/mobilemenu.min.js', __FILE__ ), array( 'jquery', 'fvw-framework-script' ) );
     endif;
 
+    // Mobilemenu
+    if( apply_filters( 'fvw_load_mobilemenu', true ) ):
+      wp_enqueue_script( 'fvw-mobilemenu', plugins_url( '/assets/scripts/mobilemenu.min.js', __FILE__ ), array( 'jquery', 'fvw-framework-script' ) );
+    endif;
+
     // Localization
     $timestamp = strtotime( 'next monday' );
     

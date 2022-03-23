@@ -9,4 +9,4 @@ Aktuellen Release herunterladen und im Wordpress Plugins Ordner platzieren.
 
 ## Version
 
-~Current Version:28.1~
+~Current Version:28.2~
