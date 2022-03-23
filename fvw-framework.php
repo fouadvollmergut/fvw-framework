@@ -89,7 +89,12 @@
     wp_enqueue_style( 'fvw-framework-style', plugins_url( '/assets/styles/v' . FVW_FRAMEWORK_RESOURCE_ID . '.css', __FILE__ ), $cssDeps );
 
     // Main script
-    wp_enqueue_script( 'fvw-framework-script', plugins_url( '/assets/scripts/v' . FVW_FRAMEWORK_RESOURCE_ID . '.min.js', __FILE__ ), $jsDeps );
+    wp_enqueue_script( 'fvw-framework-script', plugins_url( '/assets/scripts/v' . FVW_FRAMEWORK_RESOURCE_ID . '.min.js', __FILE__ ) );
+
+    // Mobilemenu
+    if( apply_filters( 'fvw_load_mobilemenu', true ) ):
+      wp_enqueue_script( 'fvw-mobilemenu', plugins_url( '/assets/scripts/mobilemenu.min.js', __FILE__ ), array( 'jquery', 'fvw-framework-script' ) );
+    endif;
 
     // Mobilemenu
     if( apply_filters( 'fvw_load_mobilemenu', true ) ):
