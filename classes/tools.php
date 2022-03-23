@@ -106,7 +106,7 @@
 			while( $decimal ) :
 
 		        $decimal = ( $decimal - ( $r = $decimal % $length ) ) / $length;     
-		        $base = $alphabet{$r} . $base;
+		        $base = $alphabet[$r] . $base;
 		    
 		    endwhile;
 
