@@ -25,7 +25,7 @@ read new_version
 
 npm version $new_version
 
-if [ $? == 0 ]; then
+if [ $? -ne 0 ]; then
     echo "Please clean your working directory before releasing."
     exit 1
 fi
