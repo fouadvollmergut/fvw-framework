@@ -7,20 +7,23 @@
    * Author URI: https://fouadvollmer.de/
    * Text Domain: fvw-framework
    * Domain Path: /languages/
-   * Version: 28.2
-   */
+   * Version: 28.0.0
+  */
 
 
   /* PATH VARS */
 
   define( 'FVW_FRAMEWORK_BASE_PATH', plugin_dir_path( __FILE__ ) );
   define( 'FVW_FRAMEWORK_BASE_URL', plugin_dir_url( __FILE__ ) );
-  define( 'FVW_FRAMEWORK_RESOURCE_ID', '3' );
 
 
   /* ICLUDE UPDATER */
 
-  require_once FVW_FRAMEWORK_BASE_PATH . 'classes/updater.php';
+  /******************************* UPDATER *******************************/
+
+	require_once FVW_FRAMEWORK_BASE_PATH . 'updater/plugin-update-checker.php';
+
+	$updater = Puc_v4_Factory::buildUpdateChecker( 'https://update.fouadvollmer.de/plugin/fvw-framework/', __FILE__, 'fvw-framework' );
 
 
   /* INCLUDE CLASSES */
@@ -80,16 +83,14 @@
       $jsDeps[] = 'flatpickr';
     endif;
 
+    // Load styles and scripts
+    wp_enqueue_style( 'fvw-framework-style', plugins_url( '/assets/styles/main.css', __FILE__ ), $cssDeps );
+    wp_enqueue_script( 'fvw-framework-script', plugins_url( '/assets/scripts/main.js', __FILE__ ) );
+
     // Google Recaptcha
     if( $recaptcha_key = fvw()->setting( 'integration/google_recaptcha/key' ) AND $recaptcha_secret = fvw()->setting( 'integration/google_recaptcha/secret' ) ):
       wp_enqueue_script( 'recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . $recaptcha_key, '4.6.3' );
     endif;
-
-    // Main Style
-    wp_enqueue_style( 'fvw-framework-style', plugins_url( '/assets/styles/v' . FVW_FRAMEWORK_RESOURCE_ID . '.css', __FILE__ ), $cssDeps );
-
-    // Main script
-    wp_enqueue_script( 'fvw-framework-script', plugins_url( '/assets/scripts/v' . FVW_FRAMEWORK_RESOURCE_ID . '.min.js', __FILE__ ) );
 
     // Mobilemenu
     if( apply_filters( 'fvw_load_mobilemenu', true ) ):
@@ -141,24 +142,3 @@
   add_action( 'admin_enqueue_scripts', function() {
     wp_enqueue_script( 'fontawesome', 'https://kit.fontawesome.com/2b14856f6a.js', array() );
   } );
-
-
-  /* UPDATER */
-
-  if (is_admin()) { // note the use of is_admin() to double check that this is happening in the admin
-    $config = array(
-      'slug' => plugin_basename(__FILE__), // this is the slug of your plugin
-      'proper_folder_name' => 'fvw-framework', // this is the name of the folder your plugin lives in
-      'api_url' => 'https://api.github.com/repos/fouadvollmer/fvw-framework', // the GitHub API url of your GitHub repo
-      'raw_url' => 'https://raw.githubusercontent.com/fouadvollmer/fvw-framework/latest', // the GitHub raw url of your GitHub repo
-      'github_url' => 'https://github.com/fouadvollmer/fvw-framework/', // the GitHub url of your GitHub repo
-      'zip_url' => 'https://github.com/fouadvollmer/fvw-framework/zipball/latest', // the zip url of the GitHub repo
-      'sslverify' => true, // whether WP should check the validity of the SSL cert when getting an update, see https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/2 and https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/4 for details
-      'requires' => '3', // which version of WordPress does your plugin require?
-      'tested' => '5.8.1', // which version of WordPress is your plugin tested up to?
-      'readme' => 'README.md', // which file to use as the readme for the version number
-      'access_token' => '', // Access private repositories by authorizing under Plugins > GitHub Updates when this example plugin is installed
-    );
-
-    new WP_GitHub_Updater($config);
-  }
