@@ -23,7 +23,7 @@ package_version="$(grep version package.json | awk -F \" '{print $4}')"
 echo "Enter next version (current $package_version): "
 read new_version
 
-npm version $new_version
+npm version $new_version -q
 
 if [ $? -ne 0 ]; then
     echo "Please clean your working directory before releasing."
