@@ -1,6 +1,9 @@
 name: Deploy
 
-on: workflow_dispatch
+on:
+  push:
+    tags: 
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   build-and-deploy:
@@ -8,8 +11,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Get Current Version
+        id: version
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
-    - name: Set up Node.js version
+    - name: Set up Node.js Version
       uses: actions/setup-node@v2
       with:
         node-version: '14'
@@ -23,10 +30,9 @@ jobs:
     - name: Deploy to update.fouadvollmer.de
       uses: easingthemes/ssh-deploy@main
       env:
-          SSH_PRIVATE_KEY: ${{ secrets.RAIDBOXES_PRIVATE_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           SOURCE: "dist/"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
-          EXCLUDE: ".github"
+          TARGET: "${{ secrets.REMOTE_TARGET }}/${{ steps.version.outputs.tag }}"

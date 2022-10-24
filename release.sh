@@ -30,5 +30,4 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Building release...\n"
-npm run build:prod
+git push --follow-tags
