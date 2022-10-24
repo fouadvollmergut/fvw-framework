@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack --watch --mode=development --progress",
     "build:prod": "webpack --mode=production",
-    "build:dev": "webpack --mode=development"
+    "build:dev": "webpack --mode=development",
+    "release": "sh ./release.sh"
   },
   "repository": {
     "type": "git",
