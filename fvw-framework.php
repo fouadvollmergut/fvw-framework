@@ -7,7 +7,7 @@
    * Author URI: https://fouadvollmer.de/
    * Text Domain: fvw-framework
    * Domain Path: /languages/
-   * Version: 28.0.0
+   * Version: 29.0.1
   */
 
 
