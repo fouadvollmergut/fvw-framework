@@ -12,9 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Get Current Version
-        id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+    - name: Get Current Verision
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
     - name: Set up Node.js Version
       uses: actions/setup-node@v2
@@ -35,4 +34,4 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-          TARGET: "${{ secrets.REMOTE_TARGET }}/${{ steps.vars.outputs.tag }}"
+          TARGET: "${{ secrets.REMOTE_TARGET }}/${{ env.RELEASE_VERSION }}"
