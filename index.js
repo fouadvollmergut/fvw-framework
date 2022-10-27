@@ -8,9 +8,13 @@ import { Croatian } from 'flatpickr/dist/l10n/hr.js';
 
 const jQuery = $;
 
+window.$ = jQuery;
+
 /************************************ THE FVW OBJECT ************************************/
 
-var fvw = new Object();
+const fvw = new Object();
+
+window.fvw = fvw;
 
 
 /************************************ CREATE GA TRACKING SNIPPET ************************************/
@@ -50,28 +54,28 @@ fvw.hash = new Object();
 
 // Get hash without hashtag
 
-fvw.hash.get = function() {
+fvw.hash.get = function () {
   return window.location.hash.substring( 1, window.location.hash.length );
 }
 
 
 // Sets hash
 
-fvw.hash.set = function( set ) {
+fvw.hash.set = function (set) {
   window.location.hash = set;
 }
 
 
 // Trigger update event
 
-fvw.hash.update = function( set ) {
+fvw.hash.update = function () {
   window.dispatchEvent( new HashChangeEvent( 'hashchange' ) )
 }
 
 
 // Remove hash
 
-fvw.hash.remove = function() {
+fvw.hash.remove = function () {
   history.replaceState( null, null, ' ' );
   fvw.hash.update();
 }
@@ -79,7 +83,7 @@ fvw.hash.remove = function() {
 
 // Returns remains if needles matches or false
 
-fvw.hash.beginsWidth = function( needle ) {
+fvw.hash.beginsWidth = function (needle) {
   return fvw.hash.get().substring( 0, needle.length ) == needle ? fvw.hash.get().substring( needle.length, fvw.hash.get().length ) : false;
 }
 
