@@ -53,6 +53,7 @@
     return $privacy;
   }
 
+  
   /* FACTORY FUNCTION */
 
   $fvw = new FVW_FACTORY;
@@ -68,18 +69,8 @@
   // Frontend scripts and styles
   add_action( 'wp_enqueue_scripts', function() {
 
-    // Dependency holders
-    $jsDeps = array( 'jquery' );
-    $cssDeps = array();
-
-    // Jquery
-    // if( apply_filters( 'fvw_load_jquery', true ) ):
-    //   wp_deregister_script( 'jquery' );
-    //   wp_enqueue_script( 'jquery', plugins_url( '/assets/scripts/jquery.min.js', __FILE__ ), array(), '3.5.1' );
-    // endif;
-
     // Load styles and scripts
-    wp_enqueue_style( 'fvw-framework-style', plugins_url( '/build/main.css', __FILE__ ), $cssDeps );
+    wp_enqueue_style( 'fvw-framework-style', plugins_url( '/build/main.css', __FILE__ ) );
     wp_enqueue_script( 'fvw-framework-script', plugins_url( '/build/main.js', __FILE__ ) );
 
     // Fontawesome
@@ -89,16 +80,6 @@
       wp_enqueue_style( 'fontawesome-regular', plugins_url( '/assets/addons/fontawesome/css/regular.min.css', __FILE__ ), array() );
       wp_enqueue_style( 'fontawesome-light', plugins_url( '/assets/addons/fontawesome/css/light.min.css', __FILE__ ), array() );
       wp_enqueue_style( 'fontawesome-v5', plugins_url( '/assets/addons/fontawesome/css/v5-font-face.min.css', __FILE__ ), array() );
-    endif;
-
-    // Flatpickr
-    if( apply_filters( 'fvw_load_flatpickr', true ) ):
-      wp_enqueue_style( 'flatpickr', FVW_FRAMEWORK_BASE_URL . 'assets/addons/flatpickr/styles/flatpickr.min.css', '4.6.3' );
-      $cssDeps[] = 'flatpickr';
-      
-      wp_enqueue_script( 'flatpickr', FVW_FRAMEWORK_BASE_URL . 'assets/addons/flatpickr/scripts/flatpickr.min.js', array( 'jquery' ), '4.6.3' );
-      wp_enqueue_script( 'flatpickr_' . substr( get_locale(), 0, 2 ), FVW_FRAMEWORK_BASE_URL . 'assets/addons/flatpickr/languages/' . substr( get_locale(), 0, 2 ) . '.min.js', array( 'jquery', 'flatpickr' ), '4.6.3' );
-      $jsDeps[] = 'flatpickr';
     endif;
 
     // Google Recaptcha

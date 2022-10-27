@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/fouadvollmer/fvw-framework#readme",
   "dependencies": {
+    "flatpickr": "^4.6.13",
     "jquery": "^3.6.1"
   },
   "devDependencies": {
