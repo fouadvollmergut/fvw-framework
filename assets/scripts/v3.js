@@ -418,9 +418,13 @@
 
 			var set = jQuery( this ).attr( 'data-fvw-privacy' );
 
+			console.log(set);
+
 			var d = new Date;
 			d.setTime( d.getTime() + 24*60*60*1000*365 );
 			document.cookie = "fvw_privacy=" + set + ";path=/;expires=" + d.toGMTString();
+
+			console.log(document.cookie);
 
 			location.reload();
 

@@ -60,7 +60,6 @@
 				
 				<script>
 
-					
 					document.addEventListener( "DOMContentLoaded", function() {
 						var el = document.querySelectorAll( "a[href='#gaOptout" );
 						for( i = 0; i < el.length; i++ ) el[i].addEventListener( 'click', gaOptout );

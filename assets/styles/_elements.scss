@@ -29,20 +29,20 @@
 
 	/************************************* FLOATER *************************************/
 
-	// .floater, .moduleInner, .modulePadding {
-	// 	display: block;
-	// 	max-width: 1200px;
-	// 	height: auto;
-	// 	margin: 0px auto;
+	.floater, .moduleInner, .modulePadding {
+		display: block;
+		max-width: 1200px;
+		height: auto;
+		margin: 0px auto;
 
-	// 	padding: 0px $spacing;
-	// 	padding: 0px var(--fvw-spacing);
-	// }
+		padding: 0px $spacing;
+		padding: 0px var(--fvw-spacing);
+	}
 
-	// .moduleInner, .modulePadding {
-	// 	padding: ($spacing * 1.5);
-	// 	padding: calc(var(--fvw-spacing) * 1.5);
-	// }
+	.moduleInner, .modulePadding {
+		padding: ($spacing * 1.5);
+		padding: calc(var(--fvw-spacing) * 1.5);
+	}
 
 	.gdymc_edit .moduleInner::before {
 		content: 'Die Klasse .moduleInner ist veraltet! Nutze stattdessen die .modulePadding Klasse.';

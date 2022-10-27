@@ -63,14 +63,22 @@
     $cssDeps = array();
 
     // Jquery
-    if( apply_filters( 'fvw_load_jquery', true ) ):
-      wp_deregister_script( 'jquery' );
-      wp_enqueue_script( 'jquery', plugins_url( '/assets/scripts/jquery.min.js', __FILE__ ), array(), '3.5.1' );
-    endif;
+    // if( apply_filters( 'fvw_load_jquery', true ) ):
+    //   wp_deregister_script( 'jquery' );
+    //   wp_enqueue_script( 'jquery', plugins_url( '/assets/scripts/jquery.min.js', __FILE__ ), array(), '3.5.1' );
+    // endif;
+
+    // Load styles and scripts
+    wp_enqueue_style( 'fvw-framework-style', plugins_url( '/build/main.css', __FILE__ ), $cssDeps );
+    wp_enqueue_script( 'fvw-framework-script', plugins_url( '/build/main.js', __FILE__ ) );
 
     // Fontawesome
     if( apply_filters( 'fvw_load_fontawesome', true ) OR gdymc_logged() ):
-      wp_enqueue_script( 'fontawesome', 'https://kit.fontawesome.com/2b14856f6a.js', array() );
+      wp_enqueue_style( 'fontawesome-style', plugins_url( '/assets/addons/fontawesome/css/fontawesome.min.css', __FILE__ ), array() );
+      wp_enqueue_style( 'fontawesome-solid', plugins_url( '/assets/addons/fontawesome/css/solid.min.css', __FILE__ ), array() );
+      wp_enqueue_style( 'fontawesome-regular', plugins_url( '/assets/addons/fontawesome/css/regular.min.css', __FILE__ ), array() );
+      wp_enqueue_style( 'fontawesome-light', plugins_url( '/assets/addons/fontawesome/css/light.min.css', __FILE__ ), array() );
+      wp_enqueue_style( 'fontawesome-v5', plugins_url( '/assets/addons/fontawesome/css/v5-font-face.min.css', __FILE__ ), array() );
     endif;
 
     // Flatpickr
@@ -83,18 +91,9 @@
       $jsDeps[] = 'flatpickr';
     endif;
 
-    // Load styles and scripts
-    wp_enqueue_style( 'fvw-framework-style', plugins_url( '/assets/styles/main.css', __FILE__ ), $cssDeps );
-    wp_enqueue_script( 'fvw-framework-script', plugins_url( '/assets/scripts/main.js', __FILE__ ) );
-
     // Google Recaptcha
     if( $recaptcha_key = fvw()->setting( 'integration/google_recaptcha/key' ) AND $recaptcha_secret = fvw()->setting( 'integration/google_recaptcha/secret' ) ):
       wp_enqueue_script( 'recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . $recaptcha_key, '4.6.3' );
-    endif;
-
-    // Mobilemenu
-    if( apply_filters( 'fvw_load_mobilemenu', true ) ):
-      wp_enqueue_script( 'fvw-mobilemenu', plugins_url( '/assets/scripts/mobilemenu.min.js', __FILE__ ), array( 'jquery', 'fvw-framework-script' ) );
     endif;
 
     // Mobilemenu
@@ -141,4 +140,4 @@
   // Backend scripts and styles
   add_action( 'admin_enqueue_scripts', function() {
     wp_enqueue_script( 'fontawesome', 'https://kit.fontawesome.com/2b14856f6a.js', array() );
-  } );
+  });
