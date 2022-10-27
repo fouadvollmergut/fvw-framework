@@ -1,6 +1,6 @@
 {
   "name": "fvw-framework",
-  "version": "29.0.3",
+  "version": "29.0.4",
   "description": "Technisches Framework für WordPress-Webseiten. Grundlage für verschiedene Addon-Plugins der Fouad Vollmer Werbeagentur.",
   "main": "index.js",
   "scripts": {
