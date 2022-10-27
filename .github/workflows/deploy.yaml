@@ -31,9 +31,9 @@ jobs:
 
     - name: Rename & zip build directory
       run:  |
+        sed -i -e "s/Version: .*/Version: ${{ env.RELEASE_VERSION }}/" dist/fvw-framework.php
         mv dist fvw-framework
         zip -r "${{ env.RELEASE_VERSION }}.zip" fvw-framework
-        ls .
 
 
     - name: Deploy to update.fouadvollmer.de
