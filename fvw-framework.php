@@ -38,10 +38,20 @@
 
   require_once FVW_FRAMEWORK_BASE_PATH . 'includes/head.php';
   require_once FVW_FRAMEWORK_BASE_PATH . 'includes/description.php';
-  require_once FVW_FRAMEWORK_BASE_PATH . 'includes/privacy.php';
   require_once FVW_FRAMEWORK_BASE_PATH . 'includes/misc.php';
   require_once FVW_FRAMEWORK_BASE_PATH . 'includes/mailer.php';
 
+  /* INCLUDE PRIVACY OVERLAY */
+  
+  add_filter( 'fvw_add_privacy', 'fvw_load_privacy_overlay', 10, 1);
+  
+  function fvw_load_privacy_overlay( $privacy ) {
+    if ($privacy) {
+      require_once FVW_FRAMEWORK_BASE_PATH . 'includes/privacy.php';
+    }
+    
+    return $privacy;
+  }
 
   /* FACTORY FUNCTION */
 
