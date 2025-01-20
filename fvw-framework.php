@@ -79,6 +79,7 @@
       wp_enqueue_style( 'fontawesome-solid', plugins_url( '/assets/addons/fontawesome/css/solid.min.css', __FILE__ ), array() );
       wp_enqueue_style( 'fontawesome-regular', plugins_url( '/assets/addons/fontawesome/css/regular.min.css', __FILE__ ), array() );
       wp_enqueue_style( 'fontawesome-light', plugins_url( '/assets/addons/fontawesome/css/light.min.css', __FILE__ ), array() );
+      wp_enqueue_style( 'fontawesome-brands', plugins_url( '/assets/addons/fontawesome/css/brands.min.css', __FILE__ ), array() );
       wp_enqueue_style( 'fontawesome-v5', plugins_url( '/assets/addons/fontawesome/css/v5-font-face.min.css', __FILE__ ), array() );
     endif;
 
