@@ -26,28 +26,6 @@
 	// Remove generator tag
 
 	remove_action( 'wp_head', 'wp_generator' );
-	
-
-
-
-
-
-
-
-
-	/**************************** GDYMC MODULES FOLDER ****************************/
-
-
-	add_filter( 'gdymc_modules_folder', 'change_gdymc_module_folder' );
-
-    function change_gdymc_module_folder( $content ) {
-
-        return get_template_directory() . '/modules';
-
-    }
-
-
-
 
 
 
